@@ -1,3 +1,4 @@
+/*
 #include<bits/stdc++.h>
 using namespace std;
 #define MAX_SIZE 100000+1
@@ -60,8 +61,9 @@ int main() {
 
 	return 0;
 }
+*/
 
-/*
+
 #include<bits/stdc++.h>
 #define MAX_SIZE 100000+1
 using namespace std;
@@ -81,29 +83,19 @@ int main() {
 
 		dq.pop_front();
 
+		visited[loc] = 1;
+
 		if (loc == K) {
 			cout << time << "\n";
 			break;
 		}
 
-		if (loc * 2 < MAX_SIZE && loc * 2 < K * 2 && !visited[loc * 2]) {
-			visited[loc * 2] = 1;
-			dq.push_front({ loc * 2, time });
-		}
-
-		// ** 주의점 : Deque를 사용할때는 -1의 경우를 +1보다 먼저해야한다 ** 
-		if (loc - 1 >= 0 && !visited[loc - 1]) {
-			visited[loc - 1] = 1;
-			dq.push_back({ loc - 1, time + 1 });
-		}
-
-		if (loc + 1 < MAX_SIZE && loc + 1 <= K && !visited[loc + 1]) {
-			visited[loc + 1] = 1;
-			dq.push_back({ loc + 1, time + 1 });
-		}
-
-
+		// ****  왕 주의점 ****
+		// 0-1 BFS를 Deque로 구현할때는 순서(-1의 경우를 +1보다 먼저해야한다)를 잘 고려하거나 
+		// 방문처리를 Deque에서 pop할때 해야한다.
+		if (loc * 2 < MAX_SIZE && loc * 2 < K * 2 && !visited[loc * 2]) dq.push_front({ loc * 2, time });
+		if (loc + 1 < MAX_SIZE && loc + 1 <= K && !visited[loc + 1]) dq.push_back({ loc + 1, time + 1 });
+		if (loc - 1 >= 0 && !visited[loc - 1]) dq.push_back({ loc - 1, time + 1 });
 	}
 	return 0;
 }
-*/

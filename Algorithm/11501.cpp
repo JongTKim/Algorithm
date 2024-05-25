@@ -1,63 +1,58 @@
-#include <algorithm>
-#include <iostream>
-#include <list>
-#include <math.h>
-#include <queue>
-#include <stack>
-#include <tuple>
-#include <vector>
+#include<bits/stdc++.h>
 using namespace std;
 
-/*
+// 2024.05.05
+// Written by JongTKim
 
-바킹독 알고리즘
-https://github.com/encrypted-def/basic-algo-lecture/blob/master/workbook.md
-  */
-int n;
+// 푼 방법 : 그리디, 자료구조
+// ★★중요★★
+// 뒤에서부터 내려오는 아이디어가 중요하다
 
-int main(void) {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL), cout.tie(NULL);
-    int k;
-    cin >> k;
-    for (int j = 0; j < k; j++) {
-        vector<int> v;
-        int n;
-        cin >> n;
+int T, N;
+int arr[1000001];
 
-        for (int i = 0; i < n; i++) {
-            int k;
-            cin >> k;
-            v.push_back(k);
-        }
-        int mx = v[0];
-        int idx = 0;
-        int ans = 0;
-        int money = 0;
-        int cnt = 0;
-        while (idx + 1 < n) {
-            int pre = idx;
-            for (int i = idx + 1; i < n; i++) {
-                if (mx < v[i]) {
-                    mx = v[i];
-                    idx = i;
-                }
-            }
-            for (int i = pre; i < idx; i++) {
-                cnt++;
-                money += v[i];
-            }
-            ans += mx * cnt - money;
-            if (idx + 1 < n) {
-                mx = v[idx + 1];
-                idx += 1;
-            }
-            money = 0;
-            cnt = 0;
-        }
 
-        cout << ans << endl;
-    }
+int main() {
+	cin.tie(NULL);
+	cout.tie(NULL);
+	ios_base::sync_with_stdio(false);
 
-    return 0;
+	cin >> T;
+
+	while (T--) {
+		map<int, int> mp;
+		vector<int> vec2;
+		long long fsum = 0;
+
+		cin >> N;
+
+		fill(arr, arr + N, 0);
+
+		for (int i = 0; i < N; i++) {
+			cin >> arr[i];
+			mp[arr[i]]++;
+		}
+
+		for (int i = 0; i < N; i++) {
+			if (arr[i] == mp.rbegin()->first) {
+				int m = mp.rbegin()->first;
+				mp[m]--;
+				if (mp[m] == 0) mp.erase(m);
+
+				//sort(vec2.begin(), vec2.end(), greater<>()); // 내림차순
+
+				for (int c : vec2) {
+					fsum += (arr[i] - c);
+					mp[c]--;
+					if (mp[c] == 0) mp.erase(c);
+				}
+				vec2.clear();
+			}
+			else {
+				vec2.push_back(arr[i]);
+			}
+		}
+		cout << fsum << "\n";
+	}
+	return 0;
 }

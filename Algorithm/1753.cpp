@@ -2,6 +2,8 @@
 #define inf 1e9
 using namespace std;
 
+
+
 int V, E, K;
 int A, B, T;
 vector<pair<int, int>> vec[20001];

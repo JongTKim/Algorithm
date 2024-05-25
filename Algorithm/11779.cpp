@@ -48,7 +48,7 @@ int main() {
 	cin.tie(NULL);
 	cout.tie(NULL);
 	ios_base::sync_with_stdio(false);
-
+	
 	input(); // 입력
 
 	fill(&d[0], &d[N + 1], inf); // 다익스트라 가중치 초기화

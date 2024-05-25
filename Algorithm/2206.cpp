@@ -5,6 +5,7 @@ using namespace std;
 // Writen by JongTKim
 
 // 푼 방법 : BFS
+// ★중요★
 
 int N, M;
 string str;

@@ -20,6 +20,7 @@ queue<namu> q2, dtree; // q2 => 임시큐, dtree => 죽은 나무 체크큐
 
 
 
+
 void spring() { // 봄 -> 나무 성장시즌
 	int fsize = q.size();
 	for (int i = 0; i < fsize; i++) {
@@ -46,7 +47,10 @@ void summer() { // 여름 -> 죽은나무 양분화
 }
 
 void fall() { // 가을 -> 나무 번식시즌
-	for (namu na : q) {
+	int size = q.size();	
+	for (int i = 0; i < size; i++) {
+		namu na = q[i];
+
 		if (na.age % 5 == 0) { // 나무 나이가 5의 배수면
 			for (int i = 0; i < 8; i++) {
 				int ny = na.y + dy[i];
@@ -58,6 +62,7 @@ void fall() { // 가을 -> 나무 번식시즌
 			}
 		}
 	}
+	
 	// q와 q2로 나눠야 하는 이유는 바로 q.push_front()를 해줄경우 for(namu na : q)에 영향을 미치기 때문이다
 	while (!q2.empty()) {
 		q.push_front(q2.front());
